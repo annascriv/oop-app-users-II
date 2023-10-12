@@ -1,47 +1,60 @@
 class Users: 
 
-    posts = []
-    post_count = 0
+    user_posts = []
+    
 
     def __init__(self,name,email,username):
         self.name=name
         self.email=email
         self.username= username
+        self.posts = []
+        self.post_count=0 
+        
        # self.User_posts = []
-        
-        
+
+    @property
+    def get_posts(self):
+
+        return self.posts
         
 
     def __str__(self):
         return f"{self.name}'s email is {self.email} and their username is {self.username}."
     
-    @classmethod
+    
     def create_post(self):
-        id=len(self.posts)+1
-        Users.post_count+=1
+        self.post_count+=1
+        id=self.post_count
         post_title = input("Enter the title of your post!\n")
         new_post = input("Enter what you would like to post!\n")
         self.posts.append( {'post number':id, 'title': post_title, 'content':new_post})
+        Users.user_posts.append({'name': {self.name}, 'post number':id, 'title': post_title, 'content':new_post})
         #self.User_posts({'post number':id, 'title': post_title, 'content':new_post})
         #Users.posts[Users.post_count] = new_post
         print("Post added successfully!")
         
-        print(Users.posts)
+        print(self.posts)
 
-    @classmethod
+  
     def delete_post(self):
         post_number = input("Enter the number of the post you would like to delete: ")
-        for i in range(len(Users.posts)):
-            if Users.posts[i][int(post_number)] == post_number:
-                Users.posts.pop(post_number)
+        
+        for i in range(len(self.posts)):
+            if self.posts[i]['post number'] == post_number:
+                self.posts.pop(i)
 
             
         print("Your post has been successfully deleted.")
-        print(Users.posts)
+        print(self.posts)
 
+user_one = Users("Anna", "anna@school.org", "annascriv")
+user_two = Users("Robert", "robert@school.org", "robertscriv")
 
+print(Users.user_posts)
 
 def prompt():
+   
+    
 
     choice = input("""
 ----WELCOME to Anna's Posting Site!---
@@ -54,17 +67,17 @@ What would you like to do?
     match choice: 
 
         case '1':
-            Users.create_post()
+            user_one.create_post()
             
             return prompt()
 
         case '2':
             #for post in Users.posts.values():
-                print(f"You have {Users.post_count} posts.")
-                print(Users.posts)    
+                print(f"You have {user_one.post_count} posts.")
+                print(user_one.get_posts)    
                 return prompt()
         case '3':
-            Users.delete_post()
+            user_one.delete_post()
             
             prompt()
 
@@ -75,7 +88,7 @@ What would you like to do?
 prompt()
 
 
-user_one = Users("Anna", "anna@school.org",'annascriv')
+#user_one = Users("Anna", "anna@school.org",'annascriv')
 
 
 # print(user_one)
