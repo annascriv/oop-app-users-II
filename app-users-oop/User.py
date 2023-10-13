@@ -49,14 +49,22 @@ class Users:
   
     def delete_post(self):
         post_number = input("Enter the number of the post you would like to delete: ")
-        
-        for i in range(len(self.posts)):
-            if self.posts[i]['post number'] == post_number:
-                self.posts.pop(i)
+        print(post_number)
+        # for i in range(len(self.posts)):
+        #     if self.posts[i]['post number'] == post_number:
+        #         self.posts.remove(self.posts[i]['post number'])
+
+        for post in self.posts:
+            print(post['post number'])
+            if post['post number'] == int(post_number):
+                    self.posts.pop(int(post_number)-1)
+                    print("Your post has been successfully deleted.")
+                    print(self.posts)
+            else:
+                print("please enter a valid post number.")    
 
             
-        print("Your post has been successfully deleted.")
-        print(self.posts)
+        
 
 user_one = Users("Anna", "anna@school.org", "annascriv")
 # print(user_one.create_post())
@@ -86,6 +94,7 @@ What would you like to do?
 3. Delete a post
 4. Exit    
 5. Create User
+6. View all Users
                    """)
     match choice: 
 
@@ -115,6 +124,9 @@ What would you like to do?
         case '5':
             user = Users.create_user()
             users.append(user)
+            print(users)
+            return prompt()
+        case '6':
             print(users)
             return prompt()
        
